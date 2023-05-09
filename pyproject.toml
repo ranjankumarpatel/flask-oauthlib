@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "flask-oauthlib"
+version = "10.0.3"
+description = ""
+authors = ["Ranjan Kumar Patel <ranjan.patel@thinktalentindia.com>"]
+readme = "README.rst"
+packages = [{include = "flask_oauthlib"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^2.3"
+mock = "^5.0.2"
+oauthlib = "^3.2.2"
+requests-oauthlib = "^1.3.1"
+werkzeug = "^2.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -9,16 +9,19 @@
 """
 
 import logging
-import oauthlib.oauth1
-import oauthlib.oauth2
 from copy import copy
 from functools import wraps
-from oauthlib.common import to_unicode, PY3, add_params_to_uri
+
+import oauthlib.oauth1
+import oauthlib.oauth2
 from flask import request, redirect, json, session, current_app
-from werkzeug.urls import url_quote, url_decode, url_encode
+from oauthlib.common import to_unicode, add_params_to_uri
 from werkzeug.http import parse_options_header
+from werkzeug.urls import url_quote, url_decode, url_encode
 from werkzeug.utils import cached_property
+
 from .utils import to_bytes
+
 try:
     from urlparse import urljoin
     import urllib2 as http
@@ -27,12 +30,7 @@ except ImportError:
     from urllib.parse import urljoin
 log = logging.getLogger('flask_oauthlib')
 
-
-if PY3:
-    string_types = (str,)
-else:
-    string_types = (str, unicode)
-
+string_types = (str,)
 
 __all__ = ('OAuth', 'OAuthRemoteApp', 'OAuthResponse', 'OAuthException')
 
@@ -226,24 +224,25 @@ class OAuthRemoteApp(object):
     :param app_key: lazy load configuration from Flask app config with
                     this app key
     """
+
     def __init__(
-        self, oauth, name,
-        base_url=None,
-        request_token_url=None,
-        access_token_url=None,
-        authorize_url=None,
-        consumer_key=None,
-        consumer_secret=None,
-        rsa_key=None,
-        signature_method=None,
-        request_token_params=None,
-        request_token_method=None,
-        access_token_params=None,
-        access_token_method=None,
-        access_token_headers=None,
-        content_type=None,
-        app_key=None,
-        encoding='utf-8',
+            self, oauth, name,
+            base_url=None,
+            request_token_url=None,
+            access_token_url=None,
+            authorize_url=None,
+            consumer_key=None,
+            consumer_secret=None,
+            rsa_key=None,
+            signature_method=None,
+            request_token_params=None,
+            request_token_method=None,
+            access_token_params=None,
+            access_token_method=None,
+            access_token_headers=None,
+            content_type=None,
+            app_key=None,
+            encoding='utf-8',
     ):
         self.oauth = oauth
         self.name = name
@@ -720,6 +719,7 @@ class OAuthRemoteApp(object):
         .. versionchanged:: 0.7
            @authorized_handler is deprecated in favor of authorized_response.
         """
+
         @wraps(f)
         def decorated(*args, **kwargs):
             log.warn(
@@ -728,6 +728,7 @@ class OAuthRemoteApp(object):
             )
             data = self.authorized_response()
             return f(*((data,) + args), **kwargs)
+
         return decorated
 
 
